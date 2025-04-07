@@ -1,6 +1,6 @@
 {
-  "version": "0.0.5",
-  "keywords": [],
+  "version": "0.0.7",
+  "keywords": ["Strapi", "Form Builder", "Form", "Builder", "Form Builder Plugin", "Form Builder Plugin for Strapi", "Form Builder Plugin for Strapi CMS", "Form Builder Plugin Strapi Version 5", "Form Builder Plugin Strapi V5"],
   "type": "commonjs",
   "exports": {
     "./package.json": "./package.json",
