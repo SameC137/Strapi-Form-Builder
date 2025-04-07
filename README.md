@@ -56,7 +56,7 @@ module.exports = {
 ### Creating Forms
 
 1. Access the Form Builder from your Strapi admin panel
-![Form Builder Home Page](demo/form-builder_forms_page.png?raw=true )
+![Form Builder Home Page](https://github.com/SameC137/Strapi-Form-Builder/blob/main/demo/form-builder_forms_page.png?raw=true )
 2. Click "Create new form"
 3. Add fields by selecting the field type and configuring:
    - Label
@@ -65,7 +65,7 @@ module.exports = {
    - Validation rules
    - Options (for select, radio, multiselect)
    
-![Form Builder Home Page](demo/form-builder_form__build_page.png?raw=true)
+![Form Builder Form Page](https://github.com/SameC137/Strapi-Form-Builder/blob/main/demo/form-builder_form__build_page.png?raw=true)
 
 ### Form Submission
 
@@ -90,7 +90,7 @@ field_1743000867275:test@mail.com
 ### Retrieving Submissions
 Submissions can be seen in the /admin/plugins/form-builder/submissions/:id route on the admin panel. It can be navigated to from the forms page(/admin/plugins/form-builder). It is possible to export all submissions in the forms page as well as the submissions page.
 
-![Form Builder Home Page](demo/form-builder_submission_page.png?raw=true)
+![Form Builder Submissions Page](https://github.com/SameC137/Strapi-Form-Builder/blob/main/demo/form-builder_submission_page.png?raw=true)
 
 ## API Endpoints
 
