@@ -5,7 +5,7 @@ export default {
       {
         method: 'GET',
         path: '/forms',
-        handler: 'controller.find',
+        handler: 'form.findPopulated',
         config: {
           policies: [],
         },
@@ -13,7 +13,7 @@ export default {
       {
         method: 'GET',
         path: '/forms/:id',
-        handler: 'controller.findOne',
+        handler: 'form.findOne',
         config: {
           policies: [],
         },
@@ -21,7 +21,7 @@ export default {
       {
         method: 'POST',
         path: '/forms',
-        handler: 'controller.create',
+        handler: 'form.create',
         config: {
           policies: [],
         },
@@ -29,7 +29,7 @@ export default {
       {
         method: 'PUT',
         path: '/forms/:id',
-        handler: 'controller.update',
+        handler: 'form.update',
         config: {
           policies: [],
         },
@@ -37,7 +37,7 @@ export default {
       {
         method: 'DELETE',
         path: '/forms/:id',
-        handler: 'controller.delete',
+        handler: 'form.delete',
         config: {
           policies: [],
         },
@@ -45,7 +45,7 @@ export default {
       {
         method: 'GET',
         path: '/forms/:id/submissions',
-        handler: 'controller.getSubmissions',
+        handler: 'form.getSubmissions',
         config: {
           policies: [],
         },
@@ -53,11 +53,12 @@ export default {
       {
         method: 'GET',
         path: '/forms/:id/export',
-        handler: 'controller.exportSubmissions',
+        handler: 'form.exportSubmissions',
         config: {
           policies: [],
         },
       },
+      
     ],
   },
   'content-api': {
@@ -66,9 +67,49 @@ export default {
       {
         method: 'POST',
         path: '/forms/:id/submit',
-        handler: 'controller.submit',
+        handler: 'form.submit',
         config: {
           auth: false,
+          policies: [],
+        },
+      },
+      {
+        method: 'GET',
+        path: '/forms',
+        handler: 'form.find',
+        config: {
+          policies: [],
+        },
+      },
+      {
+        method: 'GET',
+        path: '/forms/:id',
+        handler: 'form.findOne',
+        config: {
+          policies: [],
+        },
+      },
+      {
+        method: 'GET',
+        path: '/submissions',
+        handler: 'submission.find',
+        config: {
+          policies: [],
+        },
+      },
+      {
+        method: 'PUT',
+        path: '/submissions/:id',
+        handler: 'submission.update',
+        config: {
+          policies: [],
+        },
+      },
+      {
+        method: 'DELETE',
+        path: '/submissions/:id',
+        handler: 'submission.delete',
+        config: {
           policies: [],
         },
       },

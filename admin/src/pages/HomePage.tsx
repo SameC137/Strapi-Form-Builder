@@ -123,7 +123,8 @@ const HomePage: React.FC = () => {
             {forms.map((form: any) => (
               <Tr key={form.id}>
                 <Td>
-                  <Typography>{form.name}</Typography>
+                  <Typography> <Link as={NavLink} to={`/plugins/form-builder/forms/${form.documentId}`}>
+                  {form.name}</Link></Typography>
                 </Td>
                 <Td>
                   <Typography>{form.submissions_count}</Typography>
@@ -139,7 +140,7 @@ const HomePage: React.FC = () => {
                     >
                       <Download />
                     </IconButton>
-                    <Link as={NavLink} to={`/plugins/form-builder/forms/${form.documentId}`}>
+                    <Link as={NavLink} to={`/plugins/form-builder/submissions/${form.documentId}`}>
                       View submissions
                     </Link>
                   </Box>

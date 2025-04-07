@@ -37,18 +37,16 @@ const FIELD_TYPES = [
   { value: 'text', label: 'Text' },
   { value: 'number', label: 'Number' },
   { value: 'email', label: 'Email' },
-  { value: 'textarea', label: 'Text Area' },
   { value: 'select', label: 'Select' },
   { value: 'upload', label: 'File Upload' },
   { value: 'date', label: 'Date' },
   { value: 'datetime', label: 'Date Time' },
   { value: 'time', label: 'Time' },
-  { value: 'checkbox', label: 'Checkbox' },
+  { value: 'boolean', label: 'Boolean' },
   { value: 'radio', label: 'Radio' },
-  { value: 'hidden', label: 'Hidden' },
   { value: 'phone', label: 'Phone' },
-  { value: 'rating', label: 'Rating' },
   { value: 'multiselect', label: 'Multi Select' },
+  { value: 'url', label: 'URL' },
 ];
 
 interface FormField {

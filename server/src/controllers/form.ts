@@ -1,10 +1,27 @@
-import { errors } from '@strapi/utils';
+import { errors, sanitize } from '@strapi/utils';
 import * as xlsx from 'xlsx';
 
 const { ApplicationError, ValidationError } = errors;
 
 const find = async (ctx) => {
   try {
+    console.log('find');
+    const contentType = strapi.contentType('plugin::form-builder.form');
+
+    const sanitizedQueryParams =  await strapi.contentAPI.sanitize.query(ctx.query, contentType, { auth: ctx.state.auth });
+    const documents = await strapi.documents(contentType.uid).findMany(sanitizedQueryParams);
+
+    return await strapi.contentAPI.sanitize.output(documents, contentType, { auth: ctx.state.auth });
+    
+  } catch (err) {
+    console.log('err', err);
+    throw new ApplicationError('Failed to fetch forms');
+  }
+};
+
+const findPopulated = async (ctx) => {
+  try {
+    console.log('find');
     const forms = await strapi.documents('plugin::form-builder.form').findMany({
       populate: ['submissions'],
     });
@@ -14,9 +31,11 @@ const find = async (ctx) => {
       submissions_count: form.submissions?.length || 0,
     }));
   } catch (err) {
+    console.log('err', err);
     throw new ApplicationError('Failed to fetch forms');
   }
 };
+
 
 const findOne = async (ctx) => {
   const { id } = ctx.params;
@@ -92,14 +111,8 @@ const validateField = (value: any, field: any) => {
         if (isNaN(value)) {
           throw new ValidationError(`${field.label} must be a number`);
         }
-        if (field.validation?.min !== undefined && value < field.validation.min) {
-          throw new ValidationError(`${field.label} must be at least ${field.validation.min}`);
-        }
-        if (field.validation?.max !== undefined && value > field.validation.max) {
-          throw new ValidationError(`${field.label} must be at most ${field.validation.max}`);
-        }
         break;
-      case 'tel':
+      case 'phone':
         const phoneRegex = /^\+?[\d\s-]+$/;
         if (!phoneRegex.test(value)) {
           throw new ValidationError(`${field.label} must be a valid phone number`);
@@ -112,7 +125,51 @@ const validateField = (value: any, field: any) => {
           throw new ValidationError(`${field.label} must be a valid URL`);
         }
         break;
-      case 'file':
+      case 'date':
+        const dateValue = new Date(value);
+        if (isNaN(dateValue.getTime())) {
+          throw new ValidationError(`${field.label} must be a valid date`);
+        }
+        break;
+      case 'datetime':
+        const datetimeValue = new Date(value);
+        if (isNaN(datetimeValue.getTime())) {
+          throw new ValidationError(`${field.label} must be a valid date and time`);
+        }
+        break;
+      case 'time':
+        const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/;
+        if (!timeRegex.test(value)) {
+          throw new ValidationError(`${field.label} must be a valid time (HH:MM or HH:MM:SS)`);
+        }
+        break;
+      case 'select':
+        if (field.validation?.options && !field.validation.options.includes(value)) {
+          throw new ValidationError(`${field.label} must be one of the provided options`);
+        }
+        break;
+      case 'multiselect':
+        if (!Array.isArray(value)) {
+          throw new ValidationError(`${field.label} must be an array of values`);
+        }
+        if (field.validation?.options) {
+          const invalidValues = value.filter(v => !field.validation.options.includes(v));
+          if (invalidValues.length > 0) {
+            throw new ValidationError(`${field.label} contains invalid options`);
+          }
+        }
+        break;
+      case 'boolean':
+        if (typeof value !== 'boolean') {
+          throw new ValidationError(`${field.label} must be a boolean value`);
+        }
+        break;
+      case 'radio':
+        if (field.validation?.options && !field.validation.options.includes(value)) {
+          throw new ValidationError(`${field.label} must be one of the provided options`);
+        }
+        break;
+      case 'upload':
         // File validation happens during upload
         break;
     }
@@ -344,6 +401,7 @@ const exportSubmissions = async (ctx) => {
 
 export default {
   find,
+  findPopulated,
   findOne,
   create,
   update,

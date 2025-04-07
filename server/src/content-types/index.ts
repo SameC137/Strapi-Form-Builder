@@ -9,7 +9,7 @@ export default {
         displayName: 'Form',
       },
       options: {
-        draftAndPublish: true,
+        draftAndPublish: false,
       },
       attributes: {
         name: {
@@ -19,19 +19,6 @@ export default {
         fields: {
           type: 'json',
           required: true,
-          // Fields structure:
-          // {
-          //   id: string;
-          //   type: string;
-          //   label: string;
-          //   required: boolean;
-          //   validation?: {
-          //     pattern?: string;
-          //     min?: number;
-          //     max?: number;
-          //     allowedTypes?: string[];
-          //   };
-          // }[]
         },
         submissions: {
           type: 'relation',

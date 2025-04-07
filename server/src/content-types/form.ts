@@ -7,7 +7,7 @@ export default {
     displayName: 'Form',
   },
   options: {
-    draftAndPublish: true,
+    draftAndPublish: false,
   },
   attributes: {
     name: {

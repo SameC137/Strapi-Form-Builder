@@ -30,23 +30,7 @@ export default {
       name,
     });
 
-    // Register custom fields
-    app.customFields.register({
-      name: 'form-type',
-      pluginId: 'form-builder',
-      type: 'string',
-      intlLabel: {
-        id: 'form-builder.form-type.label',
-        defaultMessage: 'Form Type',
-      },
-      intlDescription: {
-        id: 'form-builder.form-type.description',
-        defaultMessage: 'Select a form type',
-      },
-      components: {
-        Input: async () => import('./components/FormTypeInput'),
-      },
-    });
+    
   },
 
   bootstrap(app: any) {
